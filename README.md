@@ -1,6 +1,6 @@
-#  Firmco Financial Admin App - React, Tailwind CSS & Firebase
+#  Firmco Online Portfolio Management Admin App - React, Tailwind CSS & Firebase
 
-This repository contains the code for a financial admin app built with React on the frontend, Tailwind CSS for styling, and Firebase for authentication, database management, and stock API integration.
+This repository contains the code for Firmco oniline portfolio management admin app built with React on the frontend, Tailwind CSS for styling, and Firebase for authentication, database management, and stock API integration. It controls and oversees every aspect of the financial transactions and user management within the Firmco platform.
 
 ### ️ Tech Stack
 
@@ -10,21 +10,44 @@ This repository contains the code for a financial admin app built with React on 
 
 ###   Features
 
+* **Authentication:**
+    * Secure login and registration with Firebase authentication.
+    * Password reset functionality.
+
+* **Database Management:**
+    * Store user, product, and transaction data in Firebase Firestore.
+
+* **Responsive Design:**
+    * Mobile-friendly layout for easy access on all devices.
+    * Customizable Tailwind CSS styles for a modern look.
+
 * **Product Management:**
-    * Add, edit, and delete bonds, fixed-term deposits, users and admins.
+    * Add, edit, and delete bonds, and fixed-term deposits. Add and edit stock shares owned by users.
+
 * **User Management:**
-    * Add, edit, and delete user information.
+    * Add, update, and delete user profile information, bank information, kyc information etc.
     * Perform transactions on behalf of users.
+    * View user transaction history.
+    * Send notifications to users.
+    * Chat with users in real-time.
+
 * **App Settings:**
     * Update app metadata (title, description).
     * Change favicon and logo.
     * Manage visible menus and pages for users.
     * Set password policy (weak/strong).
+    
 * **Admin Management:**
     * Add and delete admins.
+
 * **Activity Monitoring:**
     * Track user login/logout activity.
     * View user transaction history through notifications.
+
+* **Stock API Integration:**
+    * Fetch real-time stock data for users' stock shares.
+
+
 
 ###  Getting Started
 
@@ -73,4 +96,4 @@ This project is licensed under the MIT License (see LICENSE file for details).
 
 ###   Author
 
-Lilian Okeke# Firmco-Admin
+Lilian Okeke - Firmco Admin App
