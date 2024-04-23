@@ -103,6 +103,7 @@ export default function ChangeLogo() {
       <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
         {/* Form for Favicon */}
         <ImageUploadForm
+        isLoading={isLoading}
           label="Favicon"
           image={favicon}
           imageUrl={faviconUrl}
@@ -116,6 +117,7 @@ export default function ChangeLogo() {
 
         {/* Form for White/Transparent Logo */}
         <ImageUploadForm
+        isLoading={isLoading}
           label="White Logo"
           image={whiteLogo}
           imageUrl={whiteLogoUrl}
@@ -131,6 +133,7 @@ export default function ChangeLogo() {
 
         {/* Form for Dark Logo */}
         <ImageUploadForm
+        isLoading={isLoading}
           label="Dark Logo"
           image={darkLogo}
           imageUrl={darkLogoUrl}
@@ -150,7 +153,7 @@ export default function ChangeLogo() {
           className="inline-flex justify-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
           disabled={isLoading}
         >
-          {isLoading ? "Saving..." : "Save Images"}
+          {isLoading ? "Uploading..." : <DotLoader/>}
         </button>
       </div>
     </div>
@@ -162,7 +165,6 @@ export default function ChangeLogo() {
  */
 function ImageUploadForm({
   label,
-  image,
   imageUrl,
   initialUrl,
   onFileChange,
@@ -200,7 +202,7 @@ function ImageUploadForm({
           onClick={onUpload}
           className="ml-3 px-3 py-1.5 rounded-md bg-cyan-600 text-sm font-semibold text-white shadow-sm hover:bg-cyan-700"
         >
-          Upload
+         Upload
         </button>
         <button
           type="button"

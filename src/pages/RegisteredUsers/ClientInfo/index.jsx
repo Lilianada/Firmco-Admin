@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUser } from "../../../config/user";
+import { deleteUser, getUser } from "../../../config/user";
 import { customModal } from "../../../utils/modalUtils";
 import { useModal } from "../../../context/ModalContext";
 import {
@@ -8,7 +8,6 @@ import {
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 import DotLoader from "../../../components/DotLoader";
-import { deleteUser } from "firebase/auth";
 
 export default function ClientInfo({ initialUser }) {
   const navigate = useNavigate();
@@ -76,9 +75,10 @@ export default function ClientInfo({ initialUser }) {
   };
 
   const confirmDelete = async () => {
+    console.log("Deleting user:", initialUser.uid);
     setIsDeleting(true);
     try {
-      await deleteUser(viewUser.uid);
+      await deleteUser(initialUser.uid);
 
       customModal({
         showModal,
@@ -228,9 +228,13 @@ export default function ClientInfo({ initialUser }) {
           <button
             type="button"
             className="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
-            onClick={handleDelete}
+            onClick={() => handleDelete(uid)}
           >
-            {isDeleting ? <DotLoader /> : "Delete User"}
+            {isDeleting ? <div className="flex w-full justify-center align-middle gap-2">
+              <span>Deleting</span>
+              <DotLoader />
+            </div>
+            : "Delete User"}
           </button>
         </div>
       </div>
