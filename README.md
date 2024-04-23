@@ -1,4 +1,4 @@
-#  Financial Admin App - React, Tailwind CSS & Firebase
+#  Firmco Financial Admin App - React, Tailwind CSS & Firebase
 
 This repository contains the code for a financial admin app built with React on the frontend, Tailwind CSS for styling, and Firebase for authentication, database management, and stock API integration.
 
@@ -11,7 +11,7 @@ This repository contains the code for a financial admin app built with React on 
 ###   Features
 
 * **Product Management:**
-    * Add, edit, and delete bonds, fixed-term deposits, and IPO products.
+    * Add, edit, and delete bonds, fixed-term deposits, users and admins.
 * **User Management:**
     * Add, edit, and delete user information.
     * Perform transactions on behalf of users.
