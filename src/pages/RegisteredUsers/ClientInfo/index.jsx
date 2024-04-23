@@ -20,8 +20,8 @@ export default function ClientInfo({ initialUser }) {
     fullName,
     jointAccount,
     email,
-    mobile,
-    home,
+    mobilePhone,
+    homePhone,
     secondaryTitle,
     secondaryAccountHolder,
     address,
@@ -165,7 +165,7 @@ export default function ClientInfo({ initialUser }) {
               HomePhone
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-              {home || "N/A"}
+              {homePhone || "N/A"}
             </dd>
           </div>
           <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -173,7 +173,7 @@ export default function ClientInfo({ initialUser }) {
               MobilePhone
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-              {mobile || "N/A"}
+              {mobilePhone|| "N/A"}
             </dd>
           </div>
           <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">

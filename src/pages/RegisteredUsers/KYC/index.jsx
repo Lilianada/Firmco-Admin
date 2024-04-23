@@ -36,20 +36,13 @@ export default function ClientKYC({ initialUser }) {
         <h3 className="text-lg font-semibold leading-7 text-gray-900">
           Know Your Customer (KYC)
         </h3>
-        <p className="mt-1 text-sm leading-6 text-gray-900">
-          View and edit KYC details.
-        </p>
       </div>
-      {isLoading && <DotLoader/>}
+      {isLoading && <DotLoader />}
       {kycDetails === null || kycDetails.length === 0 ? (
-        <div className="mt-8 flex justify-end space-x-3">
-          <button
-            type="button"
-            className="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
-            onClick={() => handleEdit(initialUser.uid)}
-          >
-            Add KYC
-          </button>
+        <div className="w-full grid place-items-center rounded-xl border border-gray-200 p-4 mt-4">
+          <h5 className="text-gray-400 text-lg">
+            NO KYC INFO HAVE BEEN ADDED YET.
+          </h5>
         </div>
       ) : (
         <div className="mt-6 border-t border-gray-100 text-left">
@@ -141,10 +134,11 @@ export default function ClientKYC({ initialUser }) {
               <ul>
                 {kycDetails.eduExperience &&
                 kycDetails.eduExperience.length > 0 ? (
-                  kycDetails.eduExperience.map((item, index) => (<li key={index} className="list-disc ml-4">
-                    <dd className="mt-1 text-sm text-gray-500" key={index}>
-                      {item}
-                    </dd>
+                  kycDetails.eduExperience.map((item, index) => (
+                    <li key={index} className="list-disc ml-4">
+                      <dd className="mt-1 text-sm text-gray-500" key={index}>
+                        {item}
+                      </dd>
                     </li>
                   ))
                 ) : (
@@ -161,7 +155,9 @@ export default function ClientKYC({ initialUser }) {
                 kycDetails.tradeKnowledge.length > 0 ? (
                   kycDetails.tradeKnowledge.map((item, index) => (
                     <li key={index} className="list-disc ml-4">
-                      <dd className="mt-1 text-sm text-gray-500 truncate">{item}</dd>
+                      <dd className="mt-1 text-sm text-gray-500 truncate">
+                        {item}
+                      </dd>
                     </li>
                   ))
                 ) : (
@@ -281,6 +277,15 @@ export default function ClientKYC({ initialUser }) {
           </div>
         </div>
       )}
+      {!kycDetails && <div className="mt-8 flex justify-end space-x-3">
+          <button
+            type="button"
+            className="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
+            onClick={() => handleEdit(initialUser.uid)}
+          >
+            Add KYC
+          </button>
+        </div>}
     </div>
   );
 }

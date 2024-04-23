@@ -84,7 +84,7 @@ export const userSlice = createSlice({
         state.users.push(action.payload);
       })
       .addCase(updateUserAsync.fulfilled, (state, action) => {
-        const index = state.users.findIndex(user => user.id === action.payload.id);
+        const index = state.users.findIndex(user => user.uid === action.payload.uid);
         if (index !== -1) {
           state.users[index] = action.payload;
         }
