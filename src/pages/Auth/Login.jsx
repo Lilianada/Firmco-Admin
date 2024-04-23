@@ -113,6 +113,7 @@ export default function Login() {
               </h2>
               <p className="mt-2 text-sm leading-6 text-gray-500">
                 To access the admin dashboard, please login with your info.
+               
               </p>
             </div>
 
@@ -206,6 +207,27 @@ export default function Login() {
                         "Sign In"
                       )}
                     </button>
+                  </div>
+                  
+                  <div className="text-sm leading-6 text-left">
+                    <p className=" text-cyan-600 hover:text-cyan-500"
+                    >
+                <span className="font-semibold">
+                  Demo Credentials: <br />
+                </span>
+                <span className="font-medium text-cyan-600">
+                  Email:
+                </span>
+                  <span className="text-gray-500">
+                    {" "} firmco@demo.app
+                  </span> {" "}
+                <span className="font-medium text-cyan-600">
+                  Password:
+                </span>
+                  <span className="text-gray-500">
+                    {" "} 000000
+                  </span>
+                    </p>
                   </div>
                 </form>
               </div>

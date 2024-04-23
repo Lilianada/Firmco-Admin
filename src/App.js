@@ -49,6 +49,7 @@ import Notifications from "./pages/Notifications";
 import IposRequests from "./pages/IposRequest";
 import FixedTermRequests from "./pages/FixedTermRequest";
 import Chat from "./pages/Chat";
+import Todo from "./pages/Todo";
 
 function App() {
   const { loadingAuthState } = useAuth();
@@ -76,7 +77,7 @@ function App() {
                   index
                   element={
                     <ProtectedRoute>
-                      <Dashboard />
+                      <Todo />
                     </ProtectedRoute>
                   }
                 />
