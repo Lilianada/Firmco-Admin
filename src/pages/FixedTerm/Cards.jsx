@@ -87,13 +87,13 @@ export default function Cards({fixedTerms, isLoading, handleEdit, refreshTerms})
       <ul className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 sm:grid-cols-2 xl:gap-x-8 w-full">
       {isLoading && <LoadingScreen />}
       {!fixedTerms || fixedTerms.length === 0 ? (
-        <div className="w-full grid place-items-center rounded-xl border border-gray-200 p-4">
+        <div className="w-screen grid place-items-center rounded-xl border border-gray-200 p-4">
           <h5 className="text-gray-400 text-lg ">NO FIXED TERM DEPOSITS FOUND.</h5>
         </div>
       ) : (
-        sortedTerms.map((term) => (
+        sortedTerms.map((term, index) => (
           <li
-            key={term.index}
+            key={index}
             className="overflow-hidden rounded-xl border border-gray-200"
           >
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-4 flex-col">

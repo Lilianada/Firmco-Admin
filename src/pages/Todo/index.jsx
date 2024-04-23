@@ -1,12 +1,10 @@
 import React from "react";
 import {
-  AcademicCapIcon,
   BanknotesIcon,
+  ChatBubbleLeftRightIcon,
   ChatBubbleLeftEllipsisIcon,
-  CheckBadgeIcon,
   ClockIcon,
   CreditCardIcon,
-  ReceiptRefundIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
 
@@ -41,14 +39,15 @@ const actions = [
     href: "#",
     iconForeground: "text-purple-700",
     iconBackground: "bg-purple-50",
-    text: "View all requests from users. On the sidebar, click on any one of the REQUESTS button and view all requests users make on different products.",
+    text: "View and handle all requests from users. On the sidebar, click on any one of the REQUESTS button and view all requests users make on different products.",
   },
   {
-    icon: ReceiptRefundIcon,
-    name: "Submit an expense",
+    icon: ChatBubbleLeftRightIcon,
+    name: "Respond to chats",
     href: "#",
     iconForeground: "text-rose-700",
     iconBackground: "bg-rose-50",
+    text: "Users are trying to reach the admin desk to complain or make enquiries, respond to chats in real-time. Click on the chat icon and start responding.",
   },
   {
     icon: ChatBubbleLeftEllipsisIcon,
@@ -72,7 +71,7 @@ export default function Todo() {
           </h2>
           <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
             <div className="mt-2 flex items-center text-sm text-gray-500">
-              Here are some of the activities and tasks you can perform on the app.
+              Here are some of the activities and tasks you can perform on the app for trials purposes.
             </div>
           </div>
         </div>
