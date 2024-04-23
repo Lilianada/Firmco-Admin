@@ -283,7 +283,7 @@ export default function Chat() {
                     setNewMessage={setNewMessage}
                   />
                 ) : (
-                  <div className="grid place-items-center w-full h-[calc(100vh_-_196px)]  bg-gray-50">
+                  <div className="grid place-items-center w-full h-[calc(100vh_-_279px)]  bg-gray-50">
                     <ChatBubbleLeftIcon className="h-20 text-gray-400" />
                     <h4>Click on a chat to start responding.</h4>
                   </div>

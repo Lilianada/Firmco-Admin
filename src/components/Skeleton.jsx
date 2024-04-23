@@ -11,6 +11,7 @@ import {
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 
 const navigation = [
   { name: "Home", to: "/dashboard", icon: HomeIcon, current: true },
@@ -33,17 +34,11 @@ const navigation = [
     current: false,
   },
   {
-    name: "Ipos",
-    to: "/dashboard/ipos",
-    icon: CalendarIcon,
-    current: false,
-  },
-  {
     name: "Chat",
     to: "/dashboard/chat",
     icon: ChatBubbleLeftRightIcon,
     current: false,
-  }
+  },
 ];
 
 const requests = [
@@ -64,15 +59,7 @@ const requests = [
     current: false,
   },
   {
-    id: 3,
-    name: "Ipos Request",
-    to: "/dashboard/ipos_requests",
-    initial: "I",
-    count: 3,
-    current: false,
-  },
-  {
-    id:4,
+    id: 4,
     name: "Fixed Term Requests",
     to: "/dashboard/fixedTerms_requests",
     initial: "F",
@@ -85,41 +72,43 @@ export default function Skeleton() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-      <div>
-        <Sidebar
-          sidebarOpen={sidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-          navigation={navigation}
-          requests={requests}
-        />
+    <div>
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        navigation={navigation}
+        requests={requests}
+      />
 
-        <div className="lg:pl">
-          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
-            <button
-              type="button"
-              className="-m-2.5 p-2.5 text-gray-700 "
-              onClick={() => setSidebarOpen(true)}
-            >
-              <span className="sr-only">Open sidebar</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-            </button>
+      <div className="">
+        <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+          <button
+            type="button"
+            className="-m-2.5 p-2.5 text-gray-700 "
+            onClick={() => setSidebarOpen(true)}
+          >
+            <span className="sr-only">Open sidebar</span>
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
 
-            {/* Separator */}
-            <div
-              className="h-6 w-px bg-gray-900/10 lg:hidden"
-              aria-hidden="true"
-            />
+          {/* Separator */}
+          <div
+            className="h-6 w-px bg-gray-900/10 lg:hidden"
+            aria-hidden="true"
+          />
 
-            {/* Header */}
-            <Header />
-          </div>
-
-          <main className="pt-4 lg:pt-8 pb-10 lg:mx-4 sm:mx-6 bg-white">
-            <div className="px-2">
-              <Outlet />
-            </div>
-          </main>
+          {/* Header */}
+          <Header />
         </div>
+
+        <main className="pt-6 lg:pt-10 pb-10 lg:mx-4 sm:mx-6 bg-white min-h-[calc(100vh_-_149px)]">
+          <div className="px-2">
+            <Outlet />
+          </div>
+        </main>
       </div>
+
+      <Footer />
+    </div>
   );
 }
