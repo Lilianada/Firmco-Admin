@@ -135,7 +135,7 @@ export default function Cards({ bonds, isLoading, handleEdit, refreshBonds }) {
                           onClick={() => handleDelete(bond.id)}
                           className={classNames(
                             active ? "bg-gray-50" : "",
-                            "block px-3 py-1 text-sm leading-6 text-gray-900 w-full cursor-pointer"
+                            "block px-3 py-1 text-sm leading-6 text-gray-900 w-full cursor-pointer text-left"
                           )}
                         >
                           Delete<span className="sr-only">, {bond.name}</span>
@@ -211,7 +211,7 @@ export default function Cards({ bonds, isLoading, handleEdit, refreshBonds }) {
               </div>
               <div className="col-span-1 flex shadow-sm">
                 <div className="flex flex-1 items-center justify-between rounded-md truncate  bg-black mt-6">
-                  <div className="flex-1 truncate px-4 py-2 text-sm">
+                  <div className="flex-1 truncate px-4 py-2 text-sm flex items-center justify-between">
                     <p className="text-white font-bold text-xl">
                       {bond.couponRate}%
                     </p>
