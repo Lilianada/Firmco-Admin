@@ -52,7 +52,7 @@ exports.deleteUserAccount = functions.https.onCall(async (data, context) => {
       await adminUserDoc.delete();
   
       // Delete user data from Firebase Storage
-      const bucket = storage.bucket("gs://equity-west-securities.appspot.com");
+      const bucket = storage.bucket("gs://fir-app-6e8f9.appspot.com");
       const userFolder = `users/${userId}`;
       await bucket.deleteFiles({
         prefix: userFolder,
