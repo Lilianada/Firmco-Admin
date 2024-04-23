@@ -99,7 +99,7 @@ export default function Cards({fixedTerms, isLoading, handleEdit, refreshTerms})
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-4 flex-col">
               <Menu as="div" className="relative ml-auto">
                 <Menu.Button
-                  className="block text-gray-400 hover:text-indigo-500"
+                  className="block text-gray-400 hover:text-cyan-500"
                   onClick={() => setOpen(true)}
                 >
                   <span className="sr-only">Open options</span>

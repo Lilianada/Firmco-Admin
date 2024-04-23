@@ -248,7 +248,7 @@ export default function ChangeLogo() {
           <div className="mt-4 bg-gray-50 px-4 py-3 text-right sm:px-6">
             <button
               type="submit"
-              className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="inline-flex justify-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
             >
               {isLoading ? (
                 <div className="flex w-full justify-center align-middle gap-2">

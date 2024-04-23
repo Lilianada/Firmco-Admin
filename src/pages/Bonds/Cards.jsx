@@ -100,7 +100,7 @@ export default function Cards({ bonds, isLoading, handleEdit, refreshBonds }) {
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-4 flex-col">
               <Menu as="div" className="relative ml-auto">
                 <Menu.Button
-                  className="block text-gray-400 hover:text-indigo-500"
+                  className="block text-gray-400 hover:text-cyan-500"
                   onClick={() => setOpen(true)}
                 >
                   <span className="sr-only">Open options</span>
@@ -166,7 +166,7 @@ export default function Cards({ bonds, isLoading, handleEdit, refreshBonds }) {
                 <dd className="flex items-start gap-x-2">
                   <Link
                     to={bond.companyWebsite}
-                    className="font-medium text-indigo-700 cursor-pointer hover:text-indigo-400 rounded-md py-1 px-2 text-xs ring-1 ring-inset"
+                    className="font-medium text-cyan-700 cursor-pointer hover:text-cyan-400 rounded-md py-1 px-2 text-xs ring-1 ring-inset"
                   >
                     URL
                   </Link>

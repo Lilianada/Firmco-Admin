@@ -61,7 +61,7 @@ export default function Settings() {
               onClick={() => handleTabClick(item.href)}
               className={classNames(
                 item.href === activeTab
-                  ? "bg-gray-50 text-indigo-700 hover:bg-white hover:text-indigo-700"
+                  ? "bg-gray-50 text-cyan-700 hover:bg-white hover:text-cyan-700"
                   : "text-gray-900 hover:bg-gray-50 hover:text-gray-900",
                 "group flex items-center rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
               )}
@@ -70,9 +70,9 @@ export default function Settings() {
               <item.icon
                 className={classNames(
                   item.href === activeTab
-                    ? "text-indigo-500 group-hover:text-indigo-500"
+                    ? "text-cyan-500 group-hover:text-cyan-500"
                     : "text-gray-400 group-hover:text-gray-500",
-                  "-ml-1 mr-3 h-6 w-6 flex-shrink-0 hover:text-indigo-500"
+                  "-ml-1 mr-3 h-6 w-6 flex-shrink-0 hover:text-cyan-500"
                 )}
                 aria-hidden="true"
               />

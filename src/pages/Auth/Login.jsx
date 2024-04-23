@@ -133,7 +133,7 @@ export default function Login() {
                     </label>
                     <div className="mt-2">
                       <input
-                        className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                         id="email"
                         name="email"
                         type="email"
@@ -154,7 +154,7 @@ export default function Login() {
                     </label>
                     <div className="mt-2">
                       <input
-                        className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
                         id="password"
                         name="password"
                         type="password"
@@ -172,7 +172,7 @@ export default function Login() {
                         id="remember-me"
                         name="remember-me"
                         type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        className="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-600"
                       />
                       <label
                         htmlFor="remember-me"
@@ -185,7 +185,7 @@ export default function Login() {
                     <div className="text-sm leading-6">
                       <Link
                         to="/forgot-password"
-                        className="font-semibold text-indigo-600 hover:text-indigo-500"
+                        className="font-semibold text-cyan-600 hover:text-cyan-500"
                       >
                         Forgot password?
                       </Link>
@@ -195,7 +195,7 @@ export default function Login() {
                   <div>
                     <button
                       type="submit"
-                      className="flex w-full justify-center align-middle rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="flex w-full justify-center align-middle rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
                     >
                       {isLoading ? (
                         <div className="flex w-full justify-center align-middle gap-2">
