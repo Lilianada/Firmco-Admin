@@ -50,6 +50,7 @@ import IposRequests from "./pages/IposRequest";
 import FixedTermRequests from "./pages/FixedTermRequest";
 import Chat from "./pages/Chat";
 import Todo from "./pages/Todo";
+import New from "./pages/Settings/New";
 
 function App() {
   const { loadingAuthState } = useAuth();
@@ -349,7 +350,7 @@ function App() {
                   path="settings"
                   element={
                     <ProtectedRoute>
-                      <Settings />
+                      <New />
                     </ProtectedRoute>
                   }
                 />
