@@ -84,6 +84,7 @@ export const deleteDocument = async (userId, docId, fileName) => {
     throw error;
   }
 };
+
 export const updateDocument = async (
   userId,
   fileDescription,
@@ -91,7 +92,7 @@ export const updateDocument = async (
   documentId
 ) => {
   const storage = getStorage();
-console.log(documentId)
+  
   try {
     if (documentId) {
       const docRef = doc(db, "users", userId, "docs", documentId);
@@ -101,30 +102,31 @@ console.log(documentId)
         // Document exists, proceed with update
         const existingDocData = docSnapshot.data();
         const existingDownloadURL = existingDocData.downloadURL;
-        const existingStorageRef = ref(storage, existingDownloadURL);
-        console.log(existingDocData, existingDownloadURL, existingStorageRef);
-
-        // Delete the existing file from Firebase Storage
-        await deleteObject(existingStorageRef);
-        // Upload the new file to Firebase Storage
-        const newStorageRef = ref(storage, `${userId}/${file.name}`);
-        const uploadTask = uploadBytesResumable(newStorageRef, file);
-        await uploadTask;
-
-        const downloadURL = await getDownloadURL(newStorageRef);
+        const existingFileName = existingDocData.fileName;
+        let downloadURL = existingDownloadURL; 
+        
+        if (file && existingFileName !== file.name) {
+          // If file name has changed, handle the upload of the new file and delete the old one
+          const existingStorageRef = ref(storage, existingDocData.downloadURL);
+          await deleteObject(existingStorageRef);
+  
+          const newStorageRef = ref(storage, `${userId}/${file.name}`);
+          const uploadTask = uploadBytesResumable(newStorageRef, file);
+          await uploadTask;
+          downloadURL = await getDownloadURL(newStorageRef);
+        }
 
         const updatedDocData = {
           fileDescription,
           downloadURL,
-          fileName: file.name,
+          fileName: file ? file.name : existingFileName
         };
-        console.log(updatedDocData, 'updated successfully');
+
         await updateDoc(docRef, updatedDocData);
       } else {
         await createNewDocument(userId, fileDescription, file, db);
       }
-    } 
-    else {
+    } else {
       await createNewDocument(userId, fileDescription, file, db);
     }
   } catch (error) {
@@ -148,28 +150,22 @@ const createNewDocument = async (userId, fileDescription, file, db) => {
   };
 
   await addDoc(userDocCollectionRef, newDocData);
-  console.log("New document created successfully.");
 };
+
 export const downloadFile = async (doc) => {
   try {
-    // Get the download URL for the file
     const downloadURL = doc.downloadURL;
-    // Fetch the file data from the download URL
     const response = await fetch(downloadURL);
     const blob = await response.blob();
 
-    // Create a temporary anchor element to initiate the download
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
 
-    // Set the file name for the download
     a.download = doc.fileName || "download";
 
-    // Append the anchor element to the body and click it to start the download
     document.body.appendChild(a);
     a.click();
 
-    // Remove the anchor element from the body
     document.body.removeChild(a);
   } catch (error) {
     console.error("Error downloading file:", error);

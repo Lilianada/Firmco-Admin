@@ -30,8 +30,8 @@ export default function EditDoc({ setOpen, open, doc, userId, refresh }) {
   
     try {
       // Ensure file and fileDescription are properly defined
-      if (!file || !fileDescription) {
-        throw new Error('File and description must be provided.');
+      if (!fileDescription) {
+        throw new Error('File description must be provided.');
       }
 
       if (!doc || !doc[0].id) {
