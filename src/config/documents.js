@@ -13,13 +13,14 @@ http://www.apache.org/licenses/LICENSE-2.0
 * limitations under the License.
 */
 import {
-  addDoc,
+  setDoc,
   collection,
   deleteDoc,
   doc,
   getDoc,
   getDocs,
   updateDoc,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import {
@@ -72,7 +73,7 @@ export const fetchUserDocument = async (userId) => {
 
 export const deleteDocument = async (userId, docId, fileName) => {
   const storage = getStorage();
-  const storageRef = ref(storage,`${userId}/${fileName}`); 
+  const storageRef = ref(storage, `${userId}/${fileName}`);
 
   try {
     await deleteObject(storageRef);
@@ -84,61 +85,58 @@ export const deleteDocument = async (userId, docId, fileName) => {
   }
 };
 
-export const updateDocument = async (userId, documentId, fileDescription, file) => {
+export const updateDocument = async (
+  userId,
+  fileDescription,
+  file,
+  documentId
+) => {
   const storage = getStorage();
-  const uid = userId;
-  const storageRef = ref(storage, `${uid}/${file.name}`);
-  console.log(file,storageRef.fullPath, documentId, file.name)
-  
+  const dbRef = ref(storage, `${userId}/${file.name}`);
+
   try {
-    
-   // Check if the file exists in Firestore
-   const docRef = doc(db, "users", uid, "docs", documentId);
-   const docSnapshot = await getDoc(docRef);
+    if (documentId) {
+      const docRef = doc(db, "users", userId, "docs", documentId);
+      const docSnapshot = await getDoc(docRef);
+      // Document exists, proceed with updating
+      const existingDocData = docSnapshot.data();
+      const existingDownloadURL = existingDocData.downloadURL;
+      const existingStorageRef = ref(storage, existingDownloadURL);
 
-   if (docSnapshot.exists()) {
-     // Get the download URL of the existing file
-     const existingDocData = docSnapshot.data();
-     const existingDownloadURL = existingDocData.downloadURL;
+      // Delete the existing file from Firebase Storage
+      await deleteObject(existingStorageRef);
 
-     // Construct a reference to the existing file in Firebase Storage
-     const existingStorageRef = ref(storage, existingDownloadURL);
+      // Upload the new file to Firebase Storage
+      const uploadTask = uploadBytesResumable(dbRef, file);
+      await uploadTask;
+      const downloadURL = await getDownloadURL(dbRef);
 
-     // Delete the existing file from Firebase Storage
-     await deleteObject(existingStorageRef);
-
-     // Construct a reference to the new file in Firebase Storage
-     const newStorageRef = ref(storage, `${uid}/${file.name}`);
-
-     // Upload the new file to Firebase Storage
-     const uploadTask = uploadBytesResumable(newStorageRef, file);
-     const snapshot = await uploadTask;
-     const downloadURL = await getDownloadURL(snapshot.ref);
-
-     const updatedDocData = {
-       fileDescription,
-       downloadURL,
-       fileName: file.name,
-     };
-     await updateDoc(docRef, updatedDocData);
-    } else {
-      // Document doesn't exist, upload a new one
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      const snapshot = await uploadTask;
-      const downloadURL = await getDownloadURL(snapshot.ref);
-
-      // Add the metadata to Firestore
-      const userDocCollectionRef = collection(db, "users", uid, "docs");
-      const docData = {
+      // Update the document in Firestore
+      const updatedDocData = {
         fileDescription,
         downloadURL,
         fileName: file.name,
       };
-      await addDoc(userDocCollectionRef, docData);
+      await updateDoc(docRef, updatedDocData);
+    } else {
+      const userDocCollectionRef = collection(db, "users", userId, "docs");
+
+      // Document does not exist, create a new one
+      const uploadTask = uploadBytesResumable(dbRef, file);
+      await uploadTask;
+      const downloadURL = await getDownloadURL(dbRef);
+
+      // Add the metadata to Firestore
+      const newDocData = {
+        fileDescription,
+        downloadURL,
+        fileName: file.name,
+      };
+      await addDoc(userDocCollectionRef, newDocData); // Use setDoc to create a new document
     }
   } catch (error) {
     console.error("Error during file upload or Firestore operation:", error);
-    throw error;
+    throw error; // Rethrow the error after logging it
   }
 };
 
@@ -151,11 +149,11 @@ export const downloadFile = async (doc) => {
     const blob = await response.blob();
 
     // Create a temporary anchor element to initiate the download
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    
+
     // Set the file name for the download
-    a.download = doc.fileName || 'download';
+    a.download = doc.fileName || "download";
 
     // Append the anchor element to the body and click it to start the download
     document.body.appendChild(a);
@@ -168,4 +166,3 @@ export const downloadFile = async (doc) => {
     throw error;
   }
 };
-

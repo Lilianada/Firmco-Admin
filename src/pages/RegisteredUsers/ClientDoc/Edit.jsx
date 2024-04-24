@@ -24,37 +24,59 @@ export default function EditDoc({ setOpen, open, doc, userId, refresh }) {
     }
   }, [doc]);
 
-
   const handleUpdate = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
-      
-      await updateDocument(userId, doc[0].id, fileDescription, file);
+      // Ensure file and fileDescription are properly defined
+      if (!file || !fileDescription) {
+        throw new Error('File and description must be provided.');
+      }
 
-      customModal({
-        showModal,
-        title: 'Success',
-        text: 'Document has been updated successfully.',
-        showConfirmButton: false,
-        iconBgColor: 'bg-green-100',
-        iconTextColor: 'text-green-600',
-        buttonBgColor: 'bg-green-600',
-        icon: CheckIcon,
-        timer: 1500,
-      });
+      if (!doc || !doc.id) {
+        console.log(doc)
+        await updateDocument(userId, fileDescription, file);
+        customModal({
+          showModal,
+          title: 'Success',
+          text: 'Document has been added successfully.',
+          showConfirmButton: false,
+          iconBgColor: 'bg-green-100',
+          iconTextColor: 'text-green-600',
+          buttonBgColor: 'bg-green-600',
+          icon: CheckIcon,
+          timer: 1500,
+        });
+        
+      } else {
+        // Perform the document update or creation
+        await updateDocument(userId, fileDescription, file, doc.id);
+        customModal({
+          showModal,
+          title: 'Success',
+          text: 'Document has been updated successfully.',
+          showConfirmButton: false,
+          iconBgColor: 'bg-green-100',
+          iconTextColor: 'text-green-600',
+          buttonBgColor: 'bg-green-600',
+          icon: CheckIcon,
+          timer: 1500,
+        });
+      }
+      
       setFileDescription('');
       setFile(null);
-      setOpen(false);
-      refresh();
+      setOpen(false); // Assuming this controls a modal or form visibility
+      refresh(); // Refresh the list or state that depends on this document
     } catch (error) {
       console.error('Error during document update:', error);
-
+  
+      // Provide feedback on failure
       customModal({
         showModal,
         title: 'Error',
-        text: 'An error occurred while updating document. Please try again later.',
+        text: `An error occurred while updating the document: ${error.message}`,
         showConfirmButton: false,
         icon: ExclamationCircleIcon,
         iconBgColor: 'bg-red-100',
@@ -63,9 +85,10 @@ export default function EditDoc({ setOpen, open, doc, userId, refresh }) {
         timer: 1500,
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Ensure loading state is cleared
     }
   };
+  
 
   const handleChange = (e) => {
     const selectedFile = e.target.files[0];

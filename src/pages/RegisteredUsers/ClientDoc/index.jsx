@@ -108,7 +108,7 @@ export default function ClientDoc({ initialUser }) {
           Documents
         </h3>
       </div>
-      <div className="px-4 py-6 sm:col-span-2 sm:px-0">
+      <div className="px-4 pt-6 sm:col-span-2 sm:px-0">
         {isLoading && <LoadingScreen />}
         {isDownloading && <LoadingScreen /> }
         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -158,9 +158,11 @@ export default function ClientDoc({ initialUser }) {
                 </li>
               ))
             ) : (
-              <div className="w-full grid place-items-center p-4 ">
-                <h5 className="text-gray-400 text-lg ">No Document</h5>
-              </div>
+              <div className="w-full grid place-items-center rounded-xl p-4 ">
+          <h5 className="text-gray-400 text-lg">
+            NO DOCUMENT HAS BEEN ADDED YET.
+          </h5>
+        </div>
             )}
           </ul>
           {!doc && (
