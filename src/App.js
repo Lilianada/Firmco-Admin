@@ -49,6 +49,7 @@ import IposRequests from "./pages/IposRequest";
 import FixedTermRequests from "./pages/FixedTermRequest";
 import Chat from "./pages/Chat";
 import Todo from "./pages/Todo";
+import Feedback from "./pages/Feedback";
 
 function App() {
   const { loadingAuthState } = useAuth();
@@ -365,6 +366,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <Chat />
+                    </ProtectedRoute>
+                  }
+                />
+              <Route
+                  path="feedback"
+                  element={
+                    <ProtectedRoute>
+                      <Feedback />
                     </ProtectedRoute>
                   }
                 />

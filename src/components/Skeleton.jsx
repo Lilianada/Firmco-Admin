@@ -7,6 +7,7 @@ import {
   HomeIcon,
   UserGroupIcon,
   ChatBubbleLeftRightIcon,
+  ChatBubbleLeftIcon,
 } from "@heroicons/react/24/outline";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
@@ -37,6 +38,12 @@ const navigation = [
     name: "Chat",
     to: "/dashboard/chat",
     icon: ChatBubbleLeftRightIcon,
+    current: false,
+  },
+  {
+    name: "Leave Feedback",
+    to: "/dashboard/feedback",
+    icon: ChatBubbleLeftIcon,
     current: false,
   },
 ];
