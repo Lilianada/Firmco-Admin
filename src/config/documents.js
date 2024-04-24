@@ -84,7 +84,6 @@ export const deleteDocument = async (userId, docId, fileName) => {
     throw error;
   }
 };
-
 export const updateDocument = async (
   userId,
   fileDescription,
@@ -92,54 +91,65 @@ export const updateDocument = async (
   documentId
 ) => {
   const storage = getStorage();
-  const dbRef = ref(storage, `${userId}/${file.name}`);
-
+console.log(documentId)
   try {
     if (documentId) {
       const docRef = doc(db, "users", userId, "docs", documentId);
       const docSnapshot = await getDoc(docRef);
-      // Document exists, proceed with updating
-      const existingDocData = docSnapshot.data();
-      const existingDownloadURL = existingDocData.downloadURL;
-      const existingStorageRef = ref(storage, existingDownloadURL);
 
-      // Delete the existing file from Firebase Storage
-      await deleteObject(existingStorageRef);
+      if (docSnapshot.exists()) {
+        // Document exists, proceed with update
+        const existingDocData = docSnapshot.data();
+        const existingDownloadURL = existingDocData.downloadURL;
+        const existingStorageRef = ref(storage, existingDownloadURL);
+        console.log(existingDocData, existingDownloadURL, existingStorageRef);
 
-      // Upload the new file to Firebase Storage
-      const uploadTask = uploadBytesResumable(dbRef, file);
-      await uploadTask;
-      const downloadURL = await getDownloadURL(dbRef);
+        // Delete the existing file from Firebase Storage
+        await deleteObject(existingStorageRef);
+        // Upload the new file to Firebase Storage
+        const newStorageRef = ref(storage, `${userId}/${file.name}`);
+        const uploadTask = uploadBytesResumable(newStorageRef, file);
+        await uploadTask;
 
-      // Update the document in Firestore
-      const updatedDocData = {
-        fileDescription,
-        downloadURL,
-        fileName: file.name,
-      };
-      await updateDoc(docRef, updatedDocData);
-    } else {
-      const userDocCollectionRef = collection(db, "users", userId, "docs");
+        const downloadURL = await getDownloadURL(newStorageRef);
 
-      // Document does not exist, create a new one
-      const uploadTask = uploadBytesResumable(dbRef, file);
-      await uploadTask;
-      const downloadURL = await getDownloadURL(dbRef);
-
-      // Add the metadata to Firestore
-      const newDocData = {
-        fileDescription,
-        downloadURL,
-        fileName: file.name,
-      };
-      await addDoc(userDocCollectionRef, newDocData); // Use setDoc to create a new document
+        const updatedDocData = {
+          fileDescription,
+          downloadURL,
+          fileName: file.name,
+        };
+        console.log(updatedDocData, 'updated successfully');
+        await updateDoc(docRef, updatedDocData);
+      } else {
+        await createNewDocument(userId, fileDescription, file, db);
+      }
+    } 
+    else {
+      await createNewDocument(userId, fileDescription, file, db);
     }
   } catch (error) {
     console.error("Error during file upload or Firestore operation:", error);
-    throw error; // Rethrow the error after logging it
+    throw error;
   }
 };
 
+const createNewDocument = async (userId, fileDescription, file, db) => {
+  const storage = getStorage();
+  const newStorageRef = ref(storage, `${userId}/${file.name}`);
+  const uploadTask = uploadBytesResumable(newStorageRef, file);
+  await uploadTask;
+
+  const downloadURL = await getDownloadURL(newStorageRef);
+  const userDocCollectionRef = collection(db, "users", userId, "docs");
+  const newDocData = {
+    fileDescription,
+    downloadURL,
+    fileName: file.name,
+  };
+
+  await addDoc(userDocCollectionRef, newDocData);
+  console.log("New document created successfully.");
+};
 export const downloadFile = async (doc) => {
   try {
     // Get the download URL for the file

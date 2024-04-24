@@ -34,8 +34,7 @@ export default function EditDoc({ setOpen, open, doc, userId, refresh }) {
         throw new Error('File and description must be provided.');
       }
 
-      if (!doc || !doc.id) {
-        console.log(doc)
+      if (!doc || !doc[0].id) {
         await updateDocument(userId, fileDescription, file);
         customModal({
           showModal,
@@ -50,8 +49,7 @@ export default function EditDoc({ setOpen, open, doc, userId, refresh }) {
         });
         
       } else {
-        // Perform the document update or creation
-        await updateDocument(userId, fileDescription, file, doc.id);
+        await updateDocument(userId, fileDescription, file, doc[0].id);
         customModal({
           showModal,
           title: 'Success',

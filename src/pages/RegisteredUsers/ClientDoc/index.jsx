@@ -107,6 +107,9 @@ export default function ClientDoc({ initialUser }) {
         <h3 className="text-lg font-semibold leading-7 text-gray-900">
           Documents
         </h3>
+        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+         Add your National ID, Passport or Driver's Liscence.
+        </p>
       </div>
       <div className="px-4 pt-6 sm:col-span-2 sm:px-0">
         {isLoading && <LoadingScreen />}
