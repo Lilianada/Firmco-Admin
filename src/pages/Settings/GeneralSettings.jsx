@@ -167,7 +167,7 @@ export default function GeneralSettings() {
   return (
     <div>
       <form action="#" method="POST">
-        <div className="sm:rounded-md">
+        <div className="shadow sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
             <div>
               <h3 className="text-base font-semibold leading-6 text-gray-900">

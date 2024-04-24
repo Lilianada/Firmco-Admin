@@ -93,7 +93,7 @@ export default function AddNewAdmin() {
  
   return (
     <div >
-      <div className="shadow sm:overflow-hidden sm:rounded-md">
+      <div className="shadow sm:overflow-hidden sm:rounded-md bg-white">
         <div className="flex justify-between items-center space-y-2  px-4 py-4 ">
           <label
             htmlFor="add-team-members"
