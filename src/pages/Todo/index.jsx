@@ -44,7 +44,7 @@ const actions = [
   {
     icon: ChatBubbleLeftRightIcon,
     name: "Respond to chats",
-    href: "#",
+    href: "/dashboard/chat",
     iconForeground: "text-rose-700",
     iconBackground: "bg-rose-50",
     text: "Users are trying to reach the admin desk to complain or make enquiries, respond to chats in real-time. Click on the chat icon and start responding.",
@@ -52,7 +52,7 @@ const actions = [
   {
     icon: ChatBubbleLeftEllipsisIcon,
     name: "Leave feedback",
-    href: "#",
+    href: "/dashboard/feedback",
     iconForeground: "text-indigo-700",
     iconBackground: "bg-indigo-50",
     text: "Leave a feedback on the the overall look and functionality of the. To do this, you need to go to the FEEDBACK page, click on the LEAVE FEEDBACK button and fill the form.",
