@@ -15,7 +15,6 @@ import LoadingScreen from "./components/LoadingScreen";
 import Bonds from "./pages/Bonds";
 import AddBond from "./pages/Bonds/Add";
 import EditBond from "./pages/Bonds/Edit";
-import Dashboard from "./pages/Dashboard";
 import RegisteredUsers from "./pages/RegisteredUsers";
 import AddNewUser from "./pages/RegisteredUsers/AddUser";
 import ViewUser from "./pages/RegisteredUsers/ViewUser";
@@ -50,7 +49,6 @@ import IposRequests from "./pages/IposRequest";
 import FixedTermRequests from "./pages/FixedTermRequest";
 import Chat from "./pages/Chat";
 import Todo from "./pages/Todo";
-import New from "./pages/Settings/New";
 
 function App() {
   const { loadingAuthState } = useAuth();
@@ -350,7 +348,7 @@ function App() {
                   path="settings"
                   element={
                     <ProtectedRoute>
-                      <New />
+                      <Settings />
                     </ProtectedRoute>
                   }
                 />

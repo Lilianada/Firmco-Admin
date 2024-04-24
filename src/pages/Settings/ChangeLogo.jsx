@@ -166,7 +166,6 @@ export default function ChangeLogo() {
 function ImageUploadForm({
   label,
   imageUrl,
-  initialUrl,
   onFileChange,
   onUpload,
   onRevert,

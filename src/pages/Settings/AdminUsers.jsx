@@ -92,7 +92,7 @@ export default function AddNewAdmin() {
   };
  
   return (
-    <div className="space-y-6 sm:px-6 lg:col-span-9 sm:col-span-10 lg:px-0 text-left">
+    <div >
       <div className="shadow sm:overflow-hidden sm:rounded-md">
         <div className="flex justify-between items-center space-y-2  px-4 py-4 ">
           <label
