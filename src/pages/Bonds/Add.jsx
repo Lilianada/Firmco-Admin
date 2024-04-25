@@ -94,7 +94,8 @@ export default function Add() {
         const imageUrl = await handleUploadImage(formData.image);
         formData.image = imageUrl;
       }
-      await addNewBond(formData);
+      const result = await addNewBond(formData);
+      if (result.success === true){
       customModal({
         showModal,
         title: "Success",
@@ -106,6 +107,7 @@ export default function Add() {
         buttonBgColor: "bg-green-600",
         timer: 2000,
       });
+      }
       reset();
     } catch (error) {
       console.error(error);

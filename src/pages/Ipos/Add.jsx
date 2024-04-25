@@ -283,7 +283,6 @@ export default function AddIpos() {
                 </div>
                 <CurrencyInput
                   decimalSeparator="."
-                //   prefix="$"
                   name="expListingPrice"
                   placeholder="0.00"
                   value={formData.expListingPrice}

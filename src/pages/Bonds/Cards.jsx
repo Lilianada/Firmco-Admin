@@ -21,7 +21,7 @@ export default function Cards({ bonds, isLoading, handleEdit, refreshBonds }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const { showModal, hideModal } = useModal();
 
-  const sortedBonds = [...bonds].sort((a, b) => a.index - b.index);
+  const sortedBonds = !bonds ? bonds : [...bonds].sort((a, b) => a.index - b.index);
 
   const handleDelete = (bond) => {
     customModal({
@@ -92,9 +92,9 @@ export default function Cards({ bonds, isLoading, handleEdit, refreshBonds }) {
           <h5 className="text-gray-400 text-lg ">NO BONDS FOUND.</h5>
         </div>
       ) : (
-        sortedBonds.map((bond) => (
+        sortedBonds.map((bond, index) => (
           <li
-            key={bond.index}
+            key={index}
             className="overflow-hidden rounded-xl border border-gray-200"
           >
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-4 flex-col">

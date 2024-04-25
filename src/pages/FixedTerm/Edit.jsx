@@ -117,7 +117,6 @@ export default function EditFixedTerm() {
         updatedFormData.logo = termToEdit.image; 
       }
       const result = await updateTerm(formData.id, updatedFormData);
-      console.log(result)
       if (result.success === true) {
         customModal({
         showModal,
