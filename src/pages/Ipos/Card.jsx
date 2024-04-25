@@ -19,7 +19,7 @@ export default function Cards({ ipos, isLoading, handleEdit, refreshIpos }) {
   const [open, setOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const { showModal, hideModal } = useModal();
-  const sortedIpos = ipos.length > 0 ? ( [...ipos].sort((a, b) => a.index - b.index)): ipos;
+  const sortedIpos = ipos !== null ? ( [...ipos].sort((a, b) => a.index - b.index)) : ipos;
 
   const handleDelete = (iposId) => {
     customModal({

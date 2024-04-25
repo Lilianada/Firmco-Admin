@@ -151,7 +151,7 @@ export default function AddIpos() {
       logo: null,
       description: "",
       expListingPrice: 0,
-      expecteDate: "",
+      expectedDate: "",
       minInvestment: 0,
       preAllocation: "",
       preSharePrice: 0,
@@ -337,7 +337,6 @@ export default function AddIpos() {
                 </div>
                 <CurrencyInput
                   decimalSeparator="."
-                //   prefix="$"
                   name="minInvestment"
                   placeholder="0.00"
                   value={formData.minInvestment}
@@ -365,30 +364,14 @@ export default function AddIpos() {
               >
                 Pre Allocation
               </label>
-              <div className="relative mt-2 rounded-md shadow-sm">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <span className="text-gray-500 sm:text-sm">$</span>
-                </div>
-                <CurrencyInput
-                  decimalSeparator="."
-                //   prefix="$"
+              <div className="mt-2">
+                <input
                   name="preAllocation"
-                  placeholder="0.00"
+                  placeholder=""
                   value={formData.preAllocation}
-                  onValueChange={(value) => {
-                    const formattedValue = parseFloat(value).toFixed(2);
-                    handleCurrencyChange(formattedValue, "preAllocation");
-                  }}
-                  className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
-                  />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <span
-                    className="text-gray-500 sm:text-sm"
-                    id="price-currency"
-                  >
-                    USD
-                  </span>
-                </div>
+                  onChange={handleChange}
+                  className="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
+                />
               </div>
             </div>
 
