@@ -188,8 +188,8 @@ export default function AddAdminModal({ setOpen, open, refresh }) {
                     </button>
                     <button
                       type="submit"
-                      className="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
-                    >
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-cyan-300 shadow-sm px-4 py-2 bg-cyan-600 text-base font-medium text-white hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-600 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                       >
                       {isLoading ? (
                         <div className="flex w-full justify-center align-middle gap-2">
                           <span>Submitting</span>

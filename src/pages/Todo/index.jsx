@@ -35,7 +35,7 @@ const actions = [
   },
   {
     icon: ClockIcon,
-    name: "Requests from users",
+    name: "Respond to requests",
     href: "#",
     iconForeground: "text-purple-700",
     iconBackground: "bg-purple-50",

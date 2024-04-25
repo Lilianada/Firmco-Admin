@@ -107,18 +107,19 @@ export default function EditFixedTerm() {
     setIsLoading(true);
     try {
       let updatedFormData = { ...formData }; 
+      
       if (formData.logo instanceof File) {
         const imageUrl = await handleUploadImage(formData.logo);
         updatedFormData.logo = imageUrl; 
       } else if (!formData.logo) {
         updatedFormData.logo = termToEdit.image; 
-        console.log(updatedFormData.logo, "clicked");
+        console.log(updatedFormData.logo, termToEdit.image);
       }
       await updateTerm(formData.id, updatedFormData);
       customModal({
         showModal,
         title: "Success",
-        text: "You have successfully added a new term.",
+        text: "You have successfully updated this term.",
         showConfirmButton: false,
         icon: CheckIcon,
         iconBgColor: "bg-green-100",

@@ -81,6 +81,7 @@ export async function addNewTerm(termData) {
 
 //update existing term
 export async function updateTerm(termId, updatedData) {
+  console.log(termId)
   try {
     const termRef = doc(db, TERMS_COLLECTION, termId);
     await updateDoc(termRef, updatedData);

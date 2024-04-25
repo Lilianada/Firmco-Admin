@@ -506,7 +506,7 @@ function EditKyc() {
             {/* Trading Knowledge and Experience */}
             <section aria-labelledby="plan-heading">
               <div className="shadow sm:overflow-hidden sm:rounded-md">
-                <div className="space-y-6 bg-white lg:p-7 sm:p-6">
+              <div className="space-y-6 bg-white p-7 sm:p-6">
                   <div>
                     <h2
                       id="plan-heading"
