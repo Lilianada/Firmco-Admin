@@ -1,33 +1,24 @@
 import { UserCircleIcon } from '@heroicons/react/20/solid'
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-
-const comments = [
-    {
-      id: 1,
-      name: 'Leslie Alexander',
-      date: '4d ago',
-      imageId: '1494790108377-be9c29b29330',
-      body: 'Ducimus quas delectus ad maxime totam doloribus reiciendis ex. Tempore dolorem maiores. Similique voluptatibus tempore non ut.',
-    },
-    {
-      id: 2,
-      name: 'Michael Foster',
-      date: '4d ago',
-      imageId: '1519244703995-f4e0f30006d5',
-      body: 'Et ut autem. Voluptatem eum dolores sint necessitatibus quos. Quis eum qui dolorem accusantium voluptas voluptatem ipsum. Quo facere iusto quia accusamus veniam id explicabo et aut.',
-    },
-    {
-      id: 3,
-      name: 'Dries Vincent',
-      date: '4d ago',
-      imageId: '1506794778202-cad84cf45f1d',
-      body: 'Expedita consequatur sit ea voluptas quo ipsam recusandae. Ab sint et voluptatem repudiandae voluptatem et eveniet. Nihil quas consequatur autem. Perferendis rerum et.',
-    },
-  ]
+import { fetchFeedback, sendFeedback } from '../../config/feedback';
   
 export default function Feedback() {
+    const [comments, setComments] = useState([]);
+  const [newFeedback, setNewFeedback] = useState('');
+
+  useEffect(() => {
+    const unsubscribe = fetchFeedback(setComments);
+    return () => unsubscribe(); // Clean up the subscription on unmount
+  }, []);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!newFeedback.trim()) return;
+    await sendFeedback(newFeedback);
+    setNewFeedback('');
+  };
   return (
     <section aria-labelledby="notes-title">
     <div className="bg-white shadow sm:overflow-hidden sm:rounded-lg">
@@ -54,7 +45,7 @@ export default function Feedback() {
                       </Link>
                     </div>
                     <div className="mt-1 text-sm text-gray-700">
-                      <p>{comment.body}</p>
+                      <p>{comment.feedback}</p>
                     </div>
                     <div className="mt-2 space-x-2 text-sm">
                       <span className="font-medium text-gray-500">{comment.date}</span>{' '}
@@ -76,19 +67,20 @@ export default function Feedback() {
             <UserCircleIcon className='h5 w-5 text-gray-500' />
           </div>
           <div className="min-w-0 flex-1">
-            <form action="#">
+            <form onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="comment" className="sr-only">
                   About
                 </label>
                 <textarea
-                  id="comment"
-                  name="comment"
-                  rows={3}
-                  className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
-                  placeholder="Add a note"
-                  defaultValue={''}
-                />
+                    id="comment"
+                    name="comment"
+                    rows={3}
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    placeholder="Add a text"
+                    value={newFeedback}
+                    onChange={(e) => setNewFeedback(e.target.value)}
+                  />
               </div>
               <div className="mt-3 flex items-center justify-between">
                 <Link
