@@ -24,29 +24,31 @@ export default function EditFixedTerm() {
 
     useEffect(() => {
       const fetchData = async () => {
-        if (formData.logo.startsWith("gs://")) {
+        // Ensure formData.logo is a string before checking its content
+        if (typeof formData.logo === 'string' && formData.logo.startsWith("gs://")) {
           const storage = getStorage();
           const imageRef = ref(storage, formData.logo);
-  
+    
           try {
             const downloadURL = await getDownloadURL(imageRef);
-            setFormData({
-              ...termToEdit,
-              image: downloadURL, 
-            });
+            setFormData(prevFormData => ({
+              ...prevFormData,
+              image: downloadURL,  // Update image URL
+            }));
           } catch (error) {
             console.error("Error fetching download URL:", error);
           }
         } else {
-          setFormData({
+          setFormData(prevFormData => ({
+            ...prevFormData,
             ...termToEdit,
-          });
+          }));
         }
       };
-  
+    
       fetchData();
     }, [termToEdit]);
-  
+    
     const handleChange = (e) => {
       const { name, value, type, files } = e.target;
   
@@ -113,10 +115,11 @@ export default function EditFixedTerm() {
         updatedFormData.logo = imageUrl; 
       } else if (!formData.logo) {
         updatedFormData.logo = termToEdit.image; 
-        console.log(updatedFormData.logo, termToEdit.image);
       }
-      await updateTerm(formData.id, updatedFormData);
-      customModal({
+      const result = await updateTerm(formData.id, updatedFormData);
+      console.log(result)
+      if (result.success === true) {
+        customModal({
         showModal,
         title: "Success",
         text: "You have successfully updated this term.",
@@ -126,7 +129,7 @@ export default function EditFixedTerm() {
         iconTextColor: "text-green-600",
         buttonBgColor: "bg-green-600",
         timer: 2000,
-      });
+      });}
     } catch (error) {
       console.error(error);
       customModal({
@@ -143,6 +146,7 @@ export default function EditFixedTerm() {
     }
     setIsLoading(false);
   };
+
   return (
     <form className="m-2" onSubmit={handleSubmit}>
       <div className="space-y-12">

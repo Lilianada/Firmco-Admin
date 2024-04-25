@@ -15,10 +15,9 @@ export default function Cards({fixedTerms, isLoading, handleEdit, refreshTerms})
     const [open, setOpen] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const { showModal, hideModal} = useModal();
-    const [selectedTerms, setSelectedTerm] = useState(null)
     const sortedTerms = [...fixedTerms].sort((a, b) => a.index - b.index);
   
-    const handleDelete = () => {
+    const handleDelete = (termId) => {
       customModal({
         showModal,
         title: "Are you sure?",
@@ -31,7 +30,7 @@ export default function Cards({fixedTerms, isLoading, handleEdit, refreshTerms})
         cancelButtonBgColor: "bg-white",
         cancelButtonTextColor: "text-gray-900",
         onConfirm: () => {
-          confirmDelete();
+          confirmDelete(termId);
           hideModal();
         },
         onCancel: hideModal(),
@@ -43,10 +42,10 @@ export default function Cards({fixedTerms, isLoading, handleEdit, refreshTerms})
       });
     };
   
-    const confirmDelete = async () => {
+    const confirmDelete = async (termId) => {
       setIsDeleting(true);
       try {
-        await deleteTerm(selectedTerms);
+        await deleteTerm(termId);
         customModal({
           showModal,
           title: "Success",
@@ -131,7 +130,7 @@ export default function Cards({fixedTerms, isLoading, handleEdit, refreshTerms})
                     <Menu.Item>
                       {({ active }) => (
                         <button
-                          onClick={() => { setSelectedTerm(term.id); handleDelete(); }}
+                          onClick={() =>  handleDelete(term.id)}
                           className={classNames(
                             active ? "bg-gray-50" : "",
                             "block px-3 py-1 text-sm leading-6 text-gray-900 w-full cursor-pointer text-left"
