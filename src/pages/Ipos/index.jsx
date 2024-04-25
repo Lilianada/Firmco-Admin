@@ -43,7 +43,7 @@ export default function Ipos() {
         ipos={ipos}
         handleEdit={handleEdit}
         isLoading={isLoading}
-        refreshBonds={fetchIpos}
+        refreshIpos={fetchIpos}
       />
     </div>
   );

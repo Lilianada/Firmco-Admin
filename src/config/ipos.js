@@ -72,6 +72,7 @@ export const updateIpo = async (ipoId, updatedData) => {
   try {
     const ipoRef = doc(db, IPOS_COLLECTION, ipoId);
     await updateDoc(ipoRef, updatedData);
+    return{ success: true}
   } catch (error) {
     console.error("Error updating IPO: ", error);
     throw error;
@@ -95,6 +96,7 @@ export const deleteIpos = async (ipoId) => {
   const ipoRef = doc(db, IPOS_COLLECTION, ipoId);
   try {
     await deleteDoc(ipoRef);
+    return{ success: true}
   } catch (error) {
     console.error("Error deleting IPO: ", error);
     throw error;

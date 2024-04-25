@@ -26,7 +26,7 @@ export default function EditIpos() {
   useEffect(() => {
     setFormData({
       ...iposToEdit,
-      image: iposToEdit.logo, 
+      image: iposToEdit.logo,
     });
   }, [iposToEdit]);
 
@@ -95,18 +95,30 @@ export default function EditIpos() {
   };
 
   const handleCurrencyChange = (value, name) => {
-    let numericValue = parseFloat(value);
-
-    // Check if the parsed value is NaN, if so, set it to 0
-    if (isNaN(numericValue)) {
-      numericValue = 0;
+    if (value) { // Ensure value is not undefined or null
+      // Strip non-numeric characters except decimal and minus sign
+      const cleanValue = value.replace(/[^\d.-]/g, '');
+  
+      // Parse the cleaned value to float
+      const numericValue = parseFloat(cleanValue);
+  
+      // Set to zero if parsed value is NaN or fallback to zero if undefined/null
+      const safeValue = isNaN(numericValue) ? 0 : numericValue;
+  
+      // Update state with the safely parsed and formatted number
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        [name]: safeValue.toFixed(2) // Format to two decimal places
+      }));
+    } else {
+      // If the value is somehow null or undefined, safely handle by resetting it
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        [name]: "0.00" // Default to "0.00" if there's no input
+      }));
     }
-
-    setFormData({
-      ...formData,
-      [name]: numericValue,
-    });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -117,18 +129,20 @@ export default function EditIpos() {
         const imageUrl = await handleUploadImage(formData.logo);
         formData.logo = imageUrl;
       }
-      await updateIpo(formData.id, formData);
-      customModal({
-        showModal,
-        title: "Success",
-        text: "You have successfully updated this Ipos.",
-        showConfirmButton: false,
-        icon: CheckIcon,
-        iconBgColor: "bg-green-100",
-        iconTextColor: "text-green-600",
-        buttonBgColor: "bg-green-600",
-        timer: 2000,
-      });
+      const result = await updateIpo(formData.id, formData);
+      if (result.success === true) {
+        customModal({
+          showModal,
+          title: "Success",
+          text: "You have successfully updated this Ipos.",
+          showConfirmButton: false,
+          icon: CheckIcon,
+          iconBgColor: "bg-green-100",
+          iconTextColor: "text-green-600",
+          buttonBgColor: "bg-green-600",
+          timer: 2000,
+        });
+      }
     } catch (error) {
       console.error(error);
       customModal({
@@ -349,29 +363,15 @@ export default function EditIpos() {
               >
                 Pre Allocation
               </label>
-              <div className="relative mt-2 rounded-md shadow-sm">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <span className="text-gray-500 sm:text-sm">$</span>
-                </div>
-                <CurrencyInput
+              <div className="mt-2">
+                <input
                   decimalSeparator="."
                   name="preAllocation"
                   placeholder="0.00"
                   value={formData.preAllocation}
-                  onValueChange={(value) => {
-                    const formattedValue = parseFloat(value).toFixed(2);
-                    handleCurrencyChange(formattedValue, "preAllocation");
-                  }}
-                  className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
-                />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <span
-                    className="text-gray-500 sm:text-sm"
-                    id="price-currency"
-                  >
-                    USD
-                  </span>
-                </div>
+                  onChange={handleChange}
+                  className="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
+                  />
               </div>
             </div>
 
@@ -402,7 +402,7 @@ export default function EditIpos() {
                   htmlFor="preSharePrice"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                 Price
+                  Price
                 </label>
                 <div className="relative mt-2 rounded-md shadow-sm">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
