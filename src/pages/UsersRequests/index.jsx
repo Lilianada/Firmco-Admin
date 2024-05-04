@@ -35,6 +35,7 @@ export default function RequestsTable() {
     fetchUsersRequest();
   }, []);
 
+  
   //HANDLE APPROVAL
   const handleApproval = async (userId, requestData) => {
     setIsLoading(true);

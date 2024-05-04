@@ -51,10 +51,23 @@ export const fetchUserRequests = async (db) => {
   return allUserRequests;
 };
 
+//Delete user from auth table
+const deleteUserFromAuth = async (auth, email) => {
+  try {
+    const user = await auth.getUserByEmail(email);
+    if (user) {
+      await auth.deleteUser(user.uid);
+    }
+  } catch (error) {
+    console.error("Error deleting user from Auth:", error);
+  }
+};
+
 //handle user approval
 export const handleUserApproval = async (db, auth, userId, requestData) => {
   try {
     // Step 1: Create the user with Firebase Authentication
+    await deleteUserFromAuth(auth, requestData.email);
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       requestData.email,
@@ -103,6 +116,8 @@ export const handleUserApproval = async (db, auth, userId, requestData) => {
     return "User request approved successfully.";
   } catch (error) {
     console.error("Error approving user:", error);
+    // Rollback in case of failure after creating the user
+    await deleteUserFromAuth(auth, requestData.email);
     throw new Error(`Error approving user: ${error.message}`);
   }
 };
@@ -248,7 +263,7 @@ export function updateUser(uid, userData) {
 export async function deleteUser(uid) {
   const functionsInstance = getFunctions();
   const deleteFunction = httpsCallable(functionsInstance, "deleteUserAccount");
-  
+
   await deleteFunction({ userId: uid });
 
   const userDoc = doc(db, USERS_COLLECTION, uid);
