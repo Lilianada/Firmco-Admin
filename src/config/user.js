@@ -52,9 +52,9 @@ export const fetchUserRequests = async (db) => {
 };
 
 //Delete user from auth table
-const deleteUserFromAuth = async (auth, email) => {
+const deleteUserFromAuth = async (auth, mobilePhone) => {
   try {
-    const user = await auth.getUserByEmail(email);
+    const user = await auth.getUserByEmail(mobilePhone);
     if (user) {
       await auth.deleteUser(user.uid);
     }
@@ -67,10 +67,10 @@ const deleteUserFromAuth = async (auth, email) => {
 export const handleUserApproval = async (db, auth, userId, requestData) => {
   try {
     // Step 1: Create the user with Firebase Authentication
-    await deleteUserFromAuth(auth, requestData.email);
+    await deleteUserFromAuth(auth, requestData.mobilePhone);
     const userCredential = await createUserWithEmailAndPassword(
       auth,
-      requestData.email,
+      requestData.mo,
       requestData.password
     );
 

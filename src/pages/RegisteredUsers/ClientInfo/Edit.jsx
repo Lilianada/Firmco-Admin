@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
-import { getUser } from "../../../config/user";
+import { deleteUser, getUser } from "../../../config/user";
 import DotLoader from "../../../components/DotLoader";
 import { customModal } from "../../../utils/modalUtils";
 import {
@@ -11,7 +11,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { useModal } from "../../../context/ModalContext";
 import { updateUserAsync } from "../../../store/user/userSlice";
-import { deleteUser } from "firebase/auth";
 
 const CountrySelect = ({ value, onChange }) => {
   const [countries, setCountries] = useState([]);
@@ -59,6 +58,7 @@ export default function Edit() {
     city: editUser.city,
     country: editUser.country,
     postcode: editUser.postcode,
+    userId: editUser.uid,
   });
 
   const refreshDetails = async () => {
@@ -181,8 +181,9 @@ export default function Edit() {
 
   const confirmDelete = async () => {
     setIsDeleting(true);
+    console.log("Deleting user:", formData.userId);
     try {
-      await deleteUser(editUser.uid);
+      await deleteUser(formData.userId);
       customModal({
         showModal,
         title: "Success!",

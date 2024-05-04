@@ -13,6 +13,7 @@ import {
   CheckIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
+import LoadingScreen from "../../components/LoadingScreen";
 
 export default function RequestsTable() {
   const [requests, setRequests] = useState([]);
@@ -145,6 +146,7 @@ export default function RequestsTable() {
           </button>
         </div>
       </div>
+      {isLoading && <LoadingScreen />}
       {!requests || requests.length === 0 ? (
         <div className="w-full grid place-items-center rounded-xl border border-gray-200 p-4 mt-6">
           <h5 className="text-gray-400 text-lg ">NO REQUESTS FOUND.</h5>
