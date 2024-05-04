@@ -4,10 +4,10 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "custom-pattern": "url('/src/assets/Background.jpg')",
+        "custom-pattern": "url('/src/assets/images/Background.jpg')",
       },
       logo: {
-        "dark-logo": "url('/src/assets/logo.png')",
+        "dark-logo": "url('/src/assets/images/logo.png')",
       },
     },
   },
