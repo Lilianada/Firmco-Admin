@@ -58,12 +58,12 @@ export default function Skeleton() {
       icon: CreditCardIcon,
       current: false,
     },
-    {
-      name: "Ipos",
-      to: "/dashboard/ipos",
-      icon: CalendarIcon,
-      current: false,
-    },
+    // {
+    //   name: "Ipos",
+    //   to: "/dashboard/ipos",
+    //   icon: CalendarIcon,
+    //   current: false,
+    // },
     {
       name: "Chat",
       to: "/dashboard/chat",
@@ -96,14 +96,14 @@ export default function Skeleton() {
       count: bondsRequests,
       current: false,
     },
-    {
-      id: 3,
-      name: "Ipos Request",
-      to: "/dashboard/ipos_requests",
-      initial: "I",
-      count: iposRequests,
-      current: false,
-    },
+    // {
+    //   id: 3,
+    //   name: "Ipos Request",
+    //   to: "/dashboard/ipos_requests",
+    //   initial: "I",
+    //   count: iposRequests,
+    //   current: false,
+    // },
     {
       id: 4,
       name: "Fixed Term Requests",
