@@ -89,7 +89,7 @@ export default function Login() {
       customAlert({
         showAlert,
         title: "Access Denied",
-        description: error.message ,
+        description: error.message,
         textColor: "text-red-800",
         icon: XCircleIcon,
         iconBgColor: "bg-red-100",
@@ -100,20 +100,23 @@ export default function Login() {
       });
     }
   };
-  
+
   return (
     <div className="h-screen bg-blue-50">
       <div className="flex min-h-full flex-1">
         <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96 text-left">
             <div>
-              <img className="h-12 w-auto bg-slate-100" src={logoUrl} alt="Firmco Logo" />
+              <img
+                className="h-12 w-auto bg-slate-100"
+                src={logoUrl}
+                alt="Firmco Logo"
+              />
               <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
                 Sign in to your account
               </h2>
               <p className="mt-2 text-sm leading-6 text-gray-500">
                 To access the admin dashboard, please login with your info.
-               
               </p>
             </div>
 
@@ -208,25 +211,21 @@ export default function Login() {
                       )}
                     </button>
                   </div>
-                  
+
                   <div className="text-sm leading-6 text-left">
-                    <p className=" text-cyan-600 hover:text-cyan-500"
-                    >
-                <span className="font-semibold">
-                  Demo Credentials: <br />
-                </span>
-                <span className="font-medium text-cyan-600">
-                  Email:
-                </span>
-                  <span className="text-gray-500">
-                    {" "} firmco@demo.app
-                  </span> {" "}
-                <span className="font-medium text-cyan-600">
-                  Password:
-                </span>
-                  <span className="text-gray-500">
-                    {" "} 000000
-                  </span>
+                    <p className=" text-cyan-600 hover:text-cyan-500">
+                      <span className="font-semibold">
+                        Demo Credentials: <br />
+                      </span>
+                      <span className="font-medium text-cyan-600">Email:</span>
+                      <span className="text-gray-500">
+                        {" "}
+                        firmco@demo.app
+                      </span>{" "}
+                      <span className="font-medium text-cyan-600">
+                        Password:
+                      </span>
+                      <span className="text-gray-500"> 000000</span>
                     </p>
                   </div>
                 </form>
