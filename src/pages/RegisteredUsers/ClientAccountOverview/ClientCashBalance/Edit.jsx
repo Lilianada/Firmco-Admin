@@ -129,10 +129,10 @@ export default function EditCashBalance() {
     });
   };
 
-  const confirmDelete = async () => {
+  const confirmDelete = async () => { 
     setIsDeleting(true);
     try {
-      await deleteCashDeposit({ userId, depositId: details.id });
+      await deleteCashDeposit(userId, details);
       customModal({
         showModal,
         title: "Success!",
@@ -262,7 +262,7 @@ export default function EditCashBalance() {
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm"
                 >
                   <option value="">Select status</option>
-                  <option value="Cleared">Cleared</option>
+                  <option value="cleared">Cleared</option>
                 </select>
               </div>
             </div>

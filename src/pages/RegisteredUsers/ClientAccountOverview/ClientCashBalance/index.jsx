@@ -22,7 +22,6 @@ export default function ClientCashPage() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { userId } = useParams();
-
   const fetchTransaction = async () => {
     setIsLoading(true);
     try {
