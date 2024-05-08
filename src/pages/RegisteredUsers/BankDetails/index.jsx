@@ -37,10 +37,12 @@ export default function BankDetails({ initialUser }) {
         setBankingDetails(fetchedDetails[0]);
         setBankingDetailId(fetchedDetails[0]?.id);
       }
+      console.log(fetchedDetails, fetchedDetails.length, fetchedDetails[0]);
     } catch (error) {
       console.error(error);
     }
   };
+  console.log(bankingDetails);
 
   const fetchUserCountry = async () => {
     if (!user) {

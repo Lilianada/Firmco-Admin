@@ -59,7 +59,7 @@ export default function Skeleton() {
       current: false,
     },
     {
-      name: "Ipos",
+      name: "IPOs",
       to: "/dashboard/ipos",
       icon: CalendarIcon,
       current: false,
