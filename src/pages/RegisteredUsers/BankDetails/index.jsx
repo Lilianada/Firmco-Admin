@@ -16,7 +16,7 @@ import { getUser } from "../../../config/user";
 export default function BankDetails({ initialUser }) {
   const { showModal, hideModal } = useModal();
   const user = initialUser.uid;
-  const [bankingDetails, setBankingDetails] = useState([]);
+  const [bankingDetails, setBankingDetails] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const navigate = useNavigate();
   const [bankingDetailId, setBankingDetailId] = useState(null);
@@ -34,15 +34,13 @@ export default function BankDetails({ initialUser }) {
     try {
       const fetchedDetails = await getBankingDetails(user);
       if (fetchedDetails && fetchedDetails.length > 0) {
-        setBankingDetails(fetchedDetails[0]);
+        setBankingDetails(fetchedDetails[0]); 
         setBankingDetailId(fetchedDetails[0]?.id);
       }
-      console.log(fetchedDetails, fetchedDetails.length, fetchedDetails[0]);
     } catch (error) {
       console.error(error);
     }
   };
-  console.log(bankingDetails);
 
   const fetchUserCountry = async () => {
     if (!user) {
@@ -145,14 +143,14 @@ export default function BankDetails({ initialUser }) {
           Banking Details
         </h3>
       </div>
-      {!bankingDetails || bankingDetails.length === 0 ? (
+      {!bankingDetails || bankingDetails === null ? (
         <div className="w-full grid place-items-center rounded-xl border border-gray-200 p-4 mt-8">
           <h5 className="text-gray-400 text-lg">
             NO BANKING DETAIL HAS BEEN ADDED YET.
           </h5>
         </div>
       ) : (
-        bankingDetails(
+        bankingDetails && (
           <div className="mt-6 text-left">
             <dl className="grid grid-cols-1 sm:grid-cols-2">
               <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -235,17 +233,17 @@ export default function BankDetails({ initialUser }) {
           </div>
         )
       )}
-      {bankingDetails.length === 0 && (
-        <div className="mt-6 flex space-x-3 justify-end">
-          <button
-            type="button"
-            className="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
-            onClick={() => handleEdit(bankingDetailId)}
-          >
-            Add Details
-          </button>
-        </div>
-      )}
+      {!bankingDetails || bankingDetails === null ? (
+  <div className="mt-6 flex space-x-3 justify-end">
+    <button
+      type="button"
+      className="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
+      onClick={() => handleEdit(bankingDetailId)}
+    >
+      Add Details
+    </button>
+  </div>
+) : null}
     </div>
   );
 }

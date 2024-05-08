@@ -525,7 +525,7 @@ export default function Edit() {
         >
           {loading ? (
             <div className="flex w-full justify-center align-middle gap-2">
-            <span>Editing</span>
+            <span>Saving</span>
             <DotLoader />
           </div>
           ) : "Save"}
