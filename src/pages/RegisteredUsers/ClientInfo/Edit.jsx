@@ -181,7 +181,6 @@ export default function Edit() {
 
   const confirmDelete = async () => {
     setIsDeleting(true);
-    console.log("Deleting user:", formData.userId);
     try {
       await deleteUser(formData.userId);
       customModal({

@@ -273,7 +273,6 @@ export function updateUser(uid, userData) {
 
 //delete user
 export async function deleteUser(uid) {
-  console.log("Deleting user:", uid);
   const functionsInstance = getFunctions();
   const deleteFunction = httpsCallable(functionsInstance, "deleteUserAccount");
 
