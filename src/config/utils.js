@@ -68,7 +68,6 @@ import {
     }
     return 0;
   }
-
   
   export  const formatTimestamp = (timeStamp) => {
     if (!timeStamp) return "";
@@ -86,3 +85,46 @@ import {
       return format(date, "PPP"); // 'PPP' is for the longer date format, e.g., Jun 20, 2020
     }
   };
+
+  export function getHumanReadableTimestamp(timestamp) {
+    if (!timestamp) {
+      return "Invalid timestamp";
+    }
+
+    const now = new Date();
+    const timestampDate = timestamp.toDate(); // Convert Firestore Timestamp to JavaScript Date
+
+    const diff = now - timestampDate;
+
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days >= 2) {
+      // More than 2 days, show the month and time
+      const options = {
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      };
+      return timestampDate.toLocaleDateString(undefined, options);
+    } else if (days >= 1) {
+      // Yesterday
+      const options = { hour: "2-digit", minute: "2-digit" };
+      return `Yesterday at ${timestampDate.toLocaleTimeString(
+        undefined,
+        options
+      )}`;
+    } else if (hours >= 1) {
+      // Hours ago
+      return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
+    } else if (minutes >= 1) {
+      // Minutes ago
+      return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
+    } else {
+      // Seconds ago
+      return `${seconds} ${seconds === 1 ? "second" : "seconds"} ago`;
+    }
+  }

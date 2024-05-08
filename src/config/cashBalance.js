@@ -137,6 +137,7 @@ export async function getCashTransaction(userId, transactionId) {
 
 // Handle Cash Deposits
 export const addCashDeposit = async (uid, depositData) => {
+  console.log(uid, "depositData", depositData)
   try {
     // Reference to the cash deposits collection for the user
     const cashDepositsCollection = collection(
@@ -147,7 +148,7 @@ export const addCashDeposit = async (uid, depositData) => {
     );
     const docRef = await addDoc(cashDepositsCollection, depositData);
     const docId = docRef.id;
-
+    console.log("Document written with ID: ", docId);
     return { success: true, id: docId };
   } catch (error) {
     console.error("Error in addCashDeposit:", error);

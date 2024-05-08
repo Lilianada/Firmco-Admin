@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import DotLoader from "../../../../components/DotLoader";
 import { convertDateToISO } from "../../../../config/utils";
@@ -10,15 +9,16 @@ import {
   CheckIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
-import { addCashDeposit, deleteCashDeposit } from "../../../../config/cashBalance";
+import {
+  addCashDeposit,
+} from "../../../../config/cashBalance";
 
 export default function AddCashBalance() {
   const { userId } = useParams();
-  const [isDeleting, setIsDeleting] = useState(false);
-  const { showModal, hideModal } = useModal();
+  const { showModal } = useModal();
   const [isAdding, setIsAdding] = useState(false);
   const [formData, setFormData] = useState({
-    amount: 0.0,
+    amount: 0,
     type: "",
     reference: "",
     status: "",
@@ -37,16 +37,10 @@ export default function AddCashBalance() {
       status,
       date,
     };
-
     try {
-      const resultAction = await addCashDeposit({
-          userId,
-          depositData: newData,
-        })
-      
-      const result = resultAction.payload;
+      const result = await addCashDeposit(userId, newData);
 
-      if (result && result.success) {
+      if (result && result.success === true) {
         customModal({
           showModal,
           title: "Updated!",
@@ -58,6 +52,7 @@ export default function AddCashBalance() {
           buttonBgColor: "bg-green-600",
           timer: 2000,
         });
+        resetForm();
       } else {
         throw new Error("Failed to create the cash deposit.");
       }
@@ -93,67 +88,15 @@ export default function AddCashBalance() {
     }
   };
 
-  const handleDelete = () => {
-    customModal({
-      showModal,
-      title: "Are you sure?",
-      text: `You are about to delete this cash transaction. This action cannot be undone.`,
-      showConfirmButton: true,
-      confirmButtonText: "Yes, delete",
-      cancelButtonText: "Cancel",
-      confirmButtonBgColor: "bg-red-600",
-      confirmButtonTextColor: "text-white",
-      cancelButtonBgColor: "bg-white",
-      cancelButtonTextColor: "text-gray-900",
-      onConfirm: () => {
-        confirmDelete();
-        hideModal();
-      },
-      onCancel: hideModal(),
-      onClose: hideModal(),
-      icon: ExclamationTriangleIcon,
-      iconBgColor: "bg-red-100",
-      iconTextColor: "text-red-600",
-      timer: 0,
+  const resetForm = () => { 
+    setFormData({
+      amount: '',
+      type: "",
+      reference: "",
+      status: "",
+      date: "",
     });
-  };
-
-  const confirmDelete = async (id) => {
-    setIsDeleting(true);
-    try {
-      await deleteCashDeposit({ userId, depositId: id });;
-      customModal({
-        showModal,
-        title: "Success!",
-        text: `The cash transaction has been deleted successfully.`,
-        showConfirmButton: false,
-        icon: CheckIcon,
-        iconBgColor: "bg-green-100",
-        iconTextColor: "text-green-600",
-        buttonBgColor: "bg-green-600",
-        timer: 2000,
-        onClose: hideModal,
-      });
-
-      window.history.back();
-    } catch (error) {
-      console.error("Failed to delete user:", error);
-      customModal({
-        showModal,
-        title: "Error!",
-        text: "There was an error deleting the user. Please try again.",
-        showConfirmButton: false,
-        icon: ExclamationTriangleIcon,
-        iconBgColor: "bg-red-100",
-        iconTextColor: "text-red-600",
-        buttonBgColor: "bg-red-600",
-        timer: 2000,
-        onClose: hideModal,
-      });
-    } finally {
-      setIsDeleting(false);
-    }
-  };
+  }
 
   return (
     <form className="text-left bg-gray-50 px-6 py-8" onSubmit={handleCreate}>
@@ -293,14 +236,14 @@ export default function AddCashBalance() {
           type="submit"
           className="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
         >
-          {isAdding ? <DotLoader /> : "Add Details"}
-        </button>
-        <button
-          type="button"
-          className="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
-          onClick={handleDelete}
-        >
-          {isDeleting ? <DotLoader /> : "Delete Details"}
+          {isAdding ? (
+            <div className="flex w-full justify-center align-middle gap-2">
+              Adding
+              <DotLoader />
+            </div>
+          ) : (
+            "Add Details"
+          )}
         </button>
       </div>
     </form>
