@@ -217,7 +217,7 @@ export default function EditBankDetails({ initialUser }) {
       <div className="space-y-12">
         <div className="">
           <h2 className="text-xl font-semibold leading-7 text-gray-900">
-            Edit Banking Details
+            Update Banking Details
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
             If you wish to remove any information, please do so below by
@@ -242,7 +242,7 @@ export default function EditBankDetails({ initialUser }) {
                 name="accountName"
                 id="account-name"
                 onChange={handleChange}
-                value={formData.accountName || ""}
+                value={formData?.accountName || ""}
                 required
                 autoComplete="account-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
@@ -263,7 +263,7 @@ export default function EditBankDetails({ initialUser }) {
                 name="bankName"
                 id="bank-name"
                 onChange={handleChange}
-                value={formData.bankName || ""}
+                value={formData?.bankName || ""}
                 required
                 autoComplete="bank-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
@@ -284,7 +284,7 @@ export default function EditBankDetails({ initialUser }) {
                 name="branch"
                 id="branch"
                 onChange={handleChange}
-                value={formData.branch || ""}
+                value={formData?.branch || ""}
                 required
                 autoComplete="branch"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
@@ -305,7 +305,7 @@ export default function EditBankDetails({ initialUser }) {
                 name="bsbNumber"
                 id="bsbNumber"
                 onChange={handleChange}
-                value={formData.bsbNumber || ""}
+                value={formData?.bsbNumber || ""}
                 required
                 autoComplete="bsbNumber"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
@@ -326,7 +326,7 @@ export default function EditBankDetails({ initialUser }) {
                 name="accountNumber"
                 id="accountNumber"
                 onChange={handleChange}
-                value={formData.accountNumber || ""}
+                value={formData?.accountNumber || ""}
                 required
                 autoComplete="accountNumber"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
@@ -349,7 +349,7 @@ export default function EditBankDetails({ initialUser }) {
                     name="iban"
                     id="iban"
                     onChange={handleChange}
-                    value={formData.iban || ""}
+                    value={formData?.iban || ""}
                     required
                     autoComplete="iban"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
@@ -369,7 +369,7 @@ export default function EditBankDetails({ initialUser }) {
                     name="swiftCode"
                     id="swiftCode"
                     onChange={handleChange}
-                    value={formData.swiftCode || ""}
+                    value={formData?.swiftCode || ""}
                     required
                     autoComplete="swiftCode"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6"
