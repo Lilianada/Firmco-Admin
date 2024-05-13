@@ -9,7 +9,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { auth, db } from "./firebase";
+import { db } from "./firebase";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -273,14 +273,24 @@ export function updateUser(uid, userData) {
 
 //delete user
 export async function deleteUser(uid) {
-  const functionsInstance = getFunctions();
-  const deleteFunction = httpsCallable(functionsInstance, "deleteUserAccount");
+  try {
+    const functionsInstance = getFunctions();
+    const deleteFunction = httpsCallable(functionsInstance, "deleteUserAccount");
 
-  await deleteFunction({ userId: uid });
+    // Call the Cloud Function to delete the user account
+    await deleteFunction({ userId: uid });
 
-  const userDoc = doc(db, USERS_COLLECTION, uid);
-  return deleteDoc(userDoc);
+    // If the Cloud Function call is successful, delete the user document from Firestore
+    const userDocRef = doc(db, USERS_COLLECTION, uid);
+    await deleteDoc(userDocRef);
+
+    return { success: true, message: "User deleted successfully" };
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return { success: false, message: error.message };
+  }
 }
+
 
 // Fetch all users
 export async function getRegisteredUsers() {
