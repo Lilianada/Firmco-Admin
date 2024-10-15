@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
-import {
-  deleteDocument,
-  fetchUserDocument,
-} from "../../../config/documents";
+import { deleteDocument, fetchUserDocument } from "../../../config/documents";
 import {
   CheckIcon,
   ExclamationCircleIcon,
@@ -13,6 +10,7 @@ import { customModal } from "../../../utils/modalUtils";
 import { useModal } from "../../../context/ModalContext";
 import EditDoc from "./Edit";
 import LoadingScreen from "../../../components/LoadingScreen";
+import ImageModal from "./ImageModal";
 
 export default function ClientDoc({ initialUser }) {
   const user = initialUser.id;
@@ -21,7 +19,9 @@ export default function ClientDoc({ initialUser }) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [doc, setDoc] = useState([]);
   const [open, setOpen] = useState(false);
-
+  const [openImage, setOpenImage] = useState(false);
+  const [selectedImageURL, setSelectedImageURL] = useState(null); 
+  
   const fetchDoc = async () => {
     try {
       const userDoc = await fetchUserDocument(user);
@@ -34,6 +34,15 @@ export default function ClientDoc({ initialUser }) {
   useEffect(() => {
     fetchDoc();
   }, []);
+
+  const handleView = (doc) => {
+    if (doc.downloadURL) {
+      setSelectedImageURL(doc.downloadURL); // Set the URL for the selected image
+      setOpenImage(true); // Open the modal
+    } else {
+      console.error("No download URL found for this document.");
+    }
+  };
 
   const handleUpdate = async () => {
     setOpen(true);
@@ -108,12 +117,12 @@ export default function ClientDoc({ initialUser }) {
           Documents
         </h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-         Add your National ID, Passport or Driver's Liscence.
+          Add your National ID, Passport or Driver's Liscence.
         </p>
       </div>
       <div className="px-4 pt-6 sm:col-span-2 sm:px-0">
         {isLoading && <LoadingScreen />}
-        {isDownloading && <LoadingScreen /> }
+        {isDownloading && <LoadingScreen />}
         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
           <ul className="divide-y divide-gray-100 rounded-md border border-gray-200">
             {doc ? (
@@ -142,7 +151,17 @@ export default function ClientDoc({ initialUser }) {
                   <div className="ml-4 flex flex-shrink-0 space-x-4">
                     <button
                       type="button"
-                      className="rounded-md bg-gray-50 font-medium text-cyan-600 hover:text-cyan-500"
+                      className="rounded-md bg-gray-50 font-medium text-sky-600 hover:text-secondary"
+                      onClick={() => handleView(doc)}
+                    >
+                      View
+                    </button>
+                    <span className="text-gray-200" aria-hidden="true">
+                      |
+                    </span>
+                    <button
+                      type="button"
+                      className="rounded-md bg-gray-50 font-medium text-green-600 hover:text-secondary"
                       onClick={handleUpdate}
                     >
                       Update
@@ -152,7 +171,7 @@ export default function ClientDoc({ initialUser }) {
                     </span>
                     <button
                       type="button"
-                      className="rounded-md bg-gray-50 font-medium text-gray-900 hover:text-gray-800"
+                      className="rounded-md bg-gray-50 font-medium text-red-600 hover:text-gray-800"
                       onClick={() => handleDelete(doc)}
                     >
                       Remove
@@ -162,17 +181,24 @@ export default function ClientDoc({ initialUser }) {
               ))
             ) : (
               <div className="w-full grid place-items-center rounded-xl p-4 ">
-          <h5 className="text-gray-400 text-lg">
-            NO DOCUMENT HAS BEEN ADDED YET.
-          </h5>
-        </div>
+                <h5 className="text-gray-400 text-lg">
+                  NO DOCUMENT HAS BEEN ADDED YET.
+                </h5>
+              </div>
             )}
+             {openImage && selectedImageURL && (
+            <ImageModal
+              doc={selectedImageURL}
+              open={openImage}
+              setOpen={setOpenImage}
+            />
+          )}
           </ul>
           {!doc && (
             <div className="mt-6 flex space-x-3 justify-end">
               <button
                 type="button"
-                className="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
+                className="inline-flex items-center rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
                 onClick={handleUpdate}
               >
                 Add Doc
